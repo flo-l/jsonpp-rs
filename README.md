@@ -45,3 +45,7 @@ This rust binary pretty prints a `.json` file to stdout.
   }
 }
 ```
+
+### License
+
+See [LICENSE](LICENSE).
