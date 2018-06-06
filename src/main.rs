@@ -2,11 +2,13 @@
 
 #[macro_use] extern crate error_chain;
 extern crate serde_json;
+extern crate serde_transcode;
 extern crate clap;
 extern crate filebuffer;
 
-use std::io::{self, BufWriter};
+use std::io::{self, BufReader, BufWriter, Read};
 use std::fs::{self, File};
+use std::ffi::{OsStr, OsString};
 use clap::{App, Arg};
 use filebuffer::FileBuffer;
 
@@ -23,14 +25,19 @@ mod errors {
 }
 use errors::*;
 
-fn is_json_file(path: String) -> std::result::Result<(), String>
+fn is_file(path: &OsStr) -> std::result::Result<(), OsString>
 {
-    File::open(&path).map_err(|_| String::from("file not found"))?;
-    if path.ends_with(".json") {
-        std::result::Result::Ok(())
-    } else {
-        std::result::Result::Err("file must be json".into())
-    }
+    File::open(&path).map_err(|_| OsString::from("file not found")).and(Ok(()))
+}
+
+fn prettify<S: Read>(source: S) -> Result<()>
+{
+    let writer = BufWriter::new(io::stdout());
+
+    let mut deserializer = serde_json::Deserializer::from_reader(source);
+    let mut serializer = serde_json::Serializer::pretty(writer);
+    serde_transcode::transcode(&mut deserializer, &mut serializer)?;
+    Ok(())
 }
 
 fn main() -> Result<()>
@@ -41,20 +48,15 @@ fn main() -> Result<()>
     .about(env!("CARGO_PKG_DESCRIPTION"))
     .arg(Arg::with_name("input")
         .help("the input.json file to use")
-        .required(true)
-        .validator(is_json_file))
+        .validator_os(is_file))
     .get_matches();
 
-    // Here we can call .unwrap() because the argument is required.
-    let input = matches.value_of("input").unwrap();
-
-    let metadata = fs::metadata(input)?;
-    let buf = FileBuffer::open(input)?;
-    buf.prefetch(0, metadata.len() as usize);
-
-    let json: serde_json::Value = serde_json::from_slice(&buf)?;
-    let writer = BufWriter::new(io::stdout());
-    serde_json::to_writer_pretty(writer, &json)?;
-
-    Ok(())
+    if let Some(input) = matches.value_of("input") {
+        let metadata = fs::metadata(input)?;
+        let buf = FileBuffer::open(input)?;
+        buf.prefetch(0, metadata.len() as usize);
+        prettify(&*buf)
+    } else {
+        prettify(BufReader::new(io::stdin()))
+    }
 }

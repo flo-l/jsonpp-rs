@@ -3,16 +3,15 @@ name = "pp"
 version = "1.0.0"
 authors = ["Florian Lackner <florian.lackner@gmail.com>"]
 description = """
-Reads a json file and pretty prints it on stdout.
+Reads json either from stdin or a file and pretty prints it on stdout.
 """
 license = "GPL-3.0"
-license-file = "LICENSE"
 repository = "https://github.com/flo-l/pp_rs/"
 readme = "README.md"
 
-
 [dependencies]
 serde_json = "1.0"
+serde-transcode = "1.0"
 clap = "~2.31"
 error-chain = "0.11"
 filebuffer = "0.4.0"
