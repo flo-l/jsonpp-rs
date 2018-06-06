@@ -5,6 +5,8 @@ authors = ["Florian Lackner <florian.lackner@gmail.com>"]
 description = """
 Reads a json file and pretty prints it on stdout.
 """
+license = "GNU General Public License v3.0 or later"
+license-file = "LICENSE"
 
 [dependencies]
 serde_json = "1.0"
