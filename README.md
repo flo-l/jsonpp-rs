@@ -1,6 +1,8 @@
 `pp`
 ================
 
+[crates.io]: https://crates.io/crates/pp
+
 **p**retty **p**rint.
 
 This rust binary pretty prints a `.json` file to stdout.
