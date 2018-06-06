@@ -1,0 +1,19 @@
+[package]
+name = "analyzer"
+version = "1.0.0"
+authors = ["Florian Lackner <florian.lackner@gmail.com>"]
+description = """
+This program diffs json files. It prints output in csv format.
+
+It can either find properties with the same values in each input file or the inverse: properties which are unique in at least one input file.
+
+It prints output in csv format to stdout.
+"""
+
+[dependencies]
+serde_json = "1.0"
+clap = "~2.31"
+error-chain = "0.11"
+itertools = "0.7.3"
+boolinator = "2.4.0"
+csv = "1.0.0-beta.5"
