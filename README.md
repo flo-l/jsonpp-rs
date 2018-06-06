@@ -11,8 +11,10 @@ This rust binary pretty prints a `.json` file to stdout.
 
     cargo install pp
 
-### Example
+### Examples
 
+    % curl https://gist.githubusercontent.com/flo-l/be7177f7f29a3b1299d95f9a5b211019/raw/901b633f1f06f9cfb133143964ba874b03167b01/ugly.json | pp > pretty.json
+    % cat ugly.json | pp > pretty.json
     % pp ugly.json > pretty.json
 
 `ugly.json`
