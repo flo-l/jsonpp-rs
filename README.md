@@ -5,6 +5,10 @@
 
 This rust binary pretty prints a `.json` file to stdout.
 
+### Installation
+
+    cargo install pp
+
 ### Example
 
     % pp ugly.json > pretty.json
