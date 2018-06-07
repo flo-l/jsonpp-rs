@@ -43,8 +43,8 @@ impl<'a> serde_json::ser::Formatter for PrettyFormatter<'a> {
         self.current_indent -= 1;
 
         if self.has_value {
-            try!(writer.write_all(b"\n"));
-            try!(indent(writer, self.current_indent, self.indent));
+            writer.write_all(b"\n")?;
+            indent(writer, self.current_indent, self.indent)?;
         }
 
         writer.write_all(b"]")
@@ -56,11 +56,11 @@ impl<'a> serde_json::ser::Formatter for PrettyFormatter<'a> {
         W: io::Write,
     {
         if first {
-            try!(writer.write_all(b"\n"));
+            writer.write_all(b"\n")?;
         } else {
-            try!(writer.write_all(b",\n"));
+            writer.write_all(b",\n")?;
         }
-        try!(indent(writer, self.current_indent, self.indent));
+        indent(writer, self.current_indent, self.indent)?;
         Ok(())
     }
 
@@ -91,8 +91,8 @@ impl<'a> serde_json::ser::Formatter for PrettyFormatter<'a> {
         self.current_indent -= 1;
 
         if self.has_value {
-            try!(writer.write_all(b"\n"));
-            try!(indent(writer, self.current_indent, self.indent));
+            writer.write_all(b"\n")?;
+            indent(writer, self.current_indent, self.indent)?;
         }
 
         writer.write_all(b"}")
@@ -104,9 +104,9 @@ impl<'a> serde_json::ser::Formatter for PrettyFormatter<'a> {
         W: io::Write,
     {
         if first {
-            try!(writer.write_all(b"\n"));
+            writer.write_all(b"\n")?;
         } else {
-            try!(writer.write_all(b",\n"));
+            writer.write_all(b",\n")?;
         }
         indent(writer, self.current_indent, self.indent)
     }
@@ -136,7 +136,7 @@ where
     W: io::Write,
 {
     for _ in 0..n {
-        try!(wr.write_all(s));
+        wr.write_all(s)?;
     }
 
     Ok(())
