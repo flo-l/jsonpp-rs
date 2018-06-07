@@ -1,21 +1,19 @@
-`pp`
+`jsonpp`
 ================
 
-[crates.io]: https://crates.io/crates/pp
+JSON **p**retty **p**rint.
 
-**p**retty **p**rint.
-
-This rust binary pretty prints a `.json` file to stdout.
+This program pretty prints JSON. It supports customization of output.
 
 ### Installation
 
-    cargo install pp
+    cargo install jsonpp
 
 ### Examples
 
-    % curl https://gist.githubusercontent.com/flo-l/be7177f7f29a3b1299d95f9a5b211019/raw/901b633f1f06f9cfb133143964ba874b03167b01/ugly.json | pp > pretty.json
-    % cat ugly.json | pp > pretty.json
-    % pp ugly.json > pretty.json
+    % curl https://gist.githubusercontent.com/flo-l/be7177f7f29a3b1299d95f9a5b211019/raw/901b633f1f06f9cfb133143964ba874b03167b01/ugly.json | jsonpp > pretty.json
+    % cat ugly.json | jsonpp > pretty.json
+    % jsonpp ugly.json > pretty.json
 
 `ugly.json`
 ```json
