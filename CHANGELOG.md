@@ -1,6 +1,11 @@
 Changelog
 =================
 
+### 2.0
+
+- Rename the project to `jsonpp`.
+- Internal code cleanup (rustfmt)
+
 ### 1.1
 
 - fix seemingly random ordering of fields of prettified json
