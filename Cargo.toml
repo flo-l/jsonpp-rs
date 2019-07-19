@@ -8,10 +8,11 @@ Reads json either from stdin or a file and pretty prints it on stdout.
 license = "GPL-3.0"
 repository = "https://github.com/flo-l/jsonpp-rs"
 readme = "README.md"
+edition = "2018"
 
 [dependencies]
 serde_json = "1.0"
 serde-transcode = "1.0"
 clap = "~2.31"
-error-chain = "0.11"
+error-chain = "0.12"
 filebuffer = "0.4.0"

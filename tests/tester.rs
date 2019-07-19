@@ -3,6 +3,7 @@ use std::fs::read_to_string;
 use std::path::PathBuf;
 use std::process::Command;
 
+#[derive(Default)]
 pub struct Tester {
     exe: PathBuf,
 }

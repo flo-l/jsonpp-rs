@@ -1,25 +1,20 @@
 #![recursion_limit = "1024"]
 
-#[macro_use]
-extern crate error_chain;
-extern crate clap;
-extern crate filebuffer;
-extern crate serde_json;
-extern crate serde_transcode;
-
 use std::ffi::{OsStr, OsString};
 use std::fs::{self, File};
 use std::io::{self, BufReader, BufWriter, Read};
 
 use clap::{App, Arg};
 use filebuffer::FileBuffer;
+use serde_json;
+use serde_transcode;
 
 mod formatter;
 
 mod errors {
+    use error_chain::error_chain;
     // Create the Error, ErrorKind, ResultExt, and Result types
-    error_chain!
-    {
+    error_chain! {
         foreign_links
         {
             Io(::std::io::Error);
