@@ -1,5 +1,3 @@
-#![recursion_limit = "1024"]
-
 use std::ffi::{OsStr, OsString};
 use std::fs::{self, File};
 use std::io::{self, BufReader, BufWriter, Read};
@@ -34,6 +32,9 @@ fn prettify<S: Read, F: serde_json::ser::Formatter>(source: S, formatter: F) -> 
     let writer = BufWriter::new(io::stdout());
 
     let mut deserializer = serde_json::Deserializer::from_reader(source);
+
+    deserializer.disable_recursion_limit();
+
     let mut serializer = serde_json::Serializer::with_formatter(writer, formatter);
     serde_transcode::transcode(&mut deserializer, &mut serializer)?;
     Ok(())
