@@ -1,6 +1,10 @@
 Changelog
 =================
 
+### 2.0.1
+
+- Allow infinitely deeply nested json. (thank you @mys721tx)
+
 ### 2.0
 
 - Rename the project to `jsonpp`.
