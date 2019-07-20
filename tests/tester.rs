@@ -18,7 +18,8 @@ impl Tester {
             .expect("pp executable directory")
             .to_path_buf();
 
-        let exe_name = if cfg!(windows) { "pp.exe" } else { "pp" };
+        let name = env!("CARGO_PKG_NAME");
+        let exe_name = if cfg!(windows) { format!("{}.exe", name) } else { String::from(name) };
 
         Tester {
             exe: root.join(exe_name),
@@ -29,8 +30,11 @@ impl Tester {
         let input = format!("tests/json/{}", input);
         let prettified = format!("tests/json/{}", prettified);
 
+        let root_dir = env!("CARGO_MANIFEST_DIR");
+
         let output = Command::new(&self.exe)
             .arg(input)
+            .current_dir(root_dir)
             .output()
             .expect("pp failed")
             .stdout;
